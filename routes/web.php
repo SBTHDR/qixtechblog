@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,8 +18,22 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+Route::group(['middleware' => 'auth', 'prefix' => 'dashboard'], function () {
+    Route::group(['prefix' => '', 'as' => 'dashboard.'], function () {
+        Route::get('/', [DashboardController::class, 'index'])->name('index');
+    });
+    Route::group(['prefix' => 'categories', 'as' => 'categories.'], function () {
+        Route::get('/', [CategoryController::class, 'index'])->name('index');
+        Route::get('/create', [CategoryController::class, 'create'])->name('create');
+        Route::post('/store', [CategoryController::class, 'store'])->name('store');
+        Route::get('/{category:slug}/edit', [CategoryController::class, 'edit'])->name('edit');
+        Route::put('/{category:slug}/update', [CategoryController::class, 'update'])->name('update');
+        Route::delete('/{category:slug}/delete', [CategoryController::class, 'destroy'])->name('destroy');
+    });
+});
+
+// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+//     return view('dashboard');
+// })->name('dashboard');
 
 
