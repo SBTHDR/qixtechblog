@@ -19,6 +19,10 @@
         </div>
     </x-slot>
 
+    <div class="mx-auto mt-4 max-w-7xl sm:px-6 lg:px-8">
+        <x-ui.alerts />
+    </div>
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
