@@ -16,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::with('subCategories')->whereNull('parent_id')->get();
+        $categories = Category::latest()->get();
         return view('dashboard.categories.index', compact('categories'));
     }
 
@@ -27,8 +27,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categories = Category::with('subCategories')->whereNull('parent_id')->get();
-        return view('dashboard.categories.create', compact('categories'));
+        return view('dashboard.categories.create');
     }
 
     /**
@@ -42,7 +41,6 @@ class CategoryController extends Controller
         Category::create([
             'name' => $request->name,
             'slug' => Str::slug($request->name),
-            'parent_id' => $request->parent_id,
         ]);
 
         return redirect()->route('categories.index')->with('success', 'Category created successfully!');
@@ -82,7 +80,6 @@ class CategoryController extends Controller
         $category->update([
             'name' => $request->name,
             'slug' => Str::slug($request->name),
-            'parent_id' => $request->parent_id,
         ]);
 
         return redirect()->route('categories.index')->with('success', 'Category updated successfully!');
@@ -97,6 +94,6 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
-        return redirect()->route('categories.index')->with('success', 'Category updated successfully!');
+        return redirect()->route('categories.index')->with('success', 'Category deleted successfully!');
     }
 }

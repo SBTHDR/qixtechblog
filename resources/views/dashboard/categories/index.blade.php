@@ -1,20 +1,17 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Categories') }}
-        </h2>
-    </x-slot>
-
-    <x-slot name="nav">
-        <div>
-            <div class="space-x-4">
-                <x-jet-nav-link href="{{ route('categories.index') }}" :active="request()->routeIs('categories.index')">
-                    {{ __('Index') }}
-                </x-jet-nav-link>
-
-                <x-jet-nav-link href="{{ route('categories.create') }}" :active="request()->routeIs('categories.create')">
+        <div class="container mx-auto">
+            <div class="flex items-center justify-between">
+                <div>
+                  <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                    {{ __('Categories') }}
+                  </h2>
+                </div>
+                <div>
+                  <a href="{{ route('categories.create') }}" class="py-2 px-4 bg-indigo-500 rounded text-lg text-white">
                     {{ __('Create') }}
-                </x-jet-nav-link>
+                  </a>
+                </div>
             </div>
         </div>
     </x-slot>
@@ -36,7 +33,6 @@
                             <tr>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Id</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sub Category</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created At</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Updated At</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Manage</th>
@@ -51,11 +47,6 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="text-sm text-gray-900">{{ $category->name }}</div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                        @foreach ($category->subCategories as $subCategory)
-                                        <div class="text-sm text-gray-900">{{ $subCategory->name }}</div>
-                                        @endforeach
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $category->created_at->format('m/d/y') }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $category->updated_at->format('m/d/y') }}</td>

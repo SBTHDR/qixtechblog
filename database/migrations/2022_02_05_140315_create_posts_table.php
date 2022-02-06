@@ -15,6 +15,8 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->string('title');
             $table->string('slug');
             $table->text('description');
@@ -22,8 +24,6 @@ class CreatePostsTable extends Migration
             $table->string('meta_description')->nullable();
             $table->timestamp('published_at')->nullable();
             $table->boolean('featured')->default(0);
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
