@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePostRequest;
+use App\Models\Category;
 use App\Models\Post;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -14,7 +17,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::latest()->get();
+        return view('dashboard.posts.index', compact('posts'));
     }
 
     /**
@@ -24,7 +28,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        return view('dashboard.posts.create', compact('categories'));
     }
 
     /**
@@ -33,9 +38,14 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
-        //
+        Post::create([
+            'name' => $request->name,
+            'slug' => Str::slug($request->name),
+        ]);
+
+        return redirect()->route('posts.index')->with('success', 'Post created successfully!');
     }
 
     /**
@@ -57,7 +67,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        $categories = Category::all();
+        return view('dashboard.posts.edit', compact('post', 'categories'));
     }
 
     /**
@@ -67,9 +78,14 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(StorePostRequest $request, Post $post)
     {
-        //
+        $post->update([
+            'name' => $request->name,
+            'slug' => Str::slug($request->name),
+        ]);
+
+        return redirect()->route('posts.index')->with('success', 'Post updated successfully!');
     }
 
     /**
@@ -80,6 +96,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return redirect()->route('posts.index')->with('success', 'Post deleted successfully!');
     }
 }
