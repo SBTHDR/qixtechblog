@@ -999,17 +999,11 @@ select {
 .z-20 {
   z-index: 20;
 }
-.z-40 {
-  z-index: 40;
-}
 .col-span-6 {
   grid-column: span 6 / span 6;
 }
 .m-8 {
   margin: 2rem;
-}
-.m-1 {
-  margin: 0.25rem;
 }
 .mx-auto {
   margin-left: auto;
@@ -1038,10 +1032,6 @@ select {
 .-my-2 {
   margin-top: -0.5rem;
   margin-bottom: -0.5rem;
-}
-.mx-2 {
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
 }
 .ml-3 {
   margin-left: 0.75rem;
@@ -1196,11 +1186,11 @@ select {
 .h-1 {
   height: 0.25rem;
 }
-.h-full {
-  height: 100%;
-}
 .h-44 {
   height: 11rem;
+}
+.h-full {
+  height: 100%;
 }
 .min-h-screen {
   min-height: 100vh;
@@ -1277,20 +1267,11 @@ select {
 .max-w-5xl {
   max-width: 64rem;
 }
-.max-w-full {
-  max-width: 100%;
-}
 .flex-1 {
   flex: 1 1 0%;
 }
 .flex-none {
   flex: none;
-}
-.flex-auto {
-  flex: 1 1 auto;
-}
-.flex-initial {
-  flex: 0 1 auto;
 }
 .flex-shrink {
   flex-shrink: 1;
@@ -1343,11 +1324,6 @@ select {
 .list-disc {
   list-style-type: disc;
 }
-.appearance-none {
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-}
 .grid-cols-6 {
   grid-template-columns: repeat(6, minmax(0, 1fr));
 }
@@ -1356,9 +1332,6 @@ select {
 }
 .flex-row {
   flex-direction: row;
-}
-.flex-row-reverse {
-  flex-direction: row-reverse;
 }
 .flex-col {
   flex-direction: column;
@@ -1432,9 +1405,6 @@ select {
 .divide-gray-200 > :not([hidden]) ~ :not([hidden]) {
   --tw-divide-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-divide-opacity));
-}
-.overflow-auto {
-  overflow: auto;
 }
 .overflow-hidden {
   overflow: hidden;
@@ -1518,12 +1488,6 @@ select {
 }
 .border-b-4 {
   border-bottom-width: 4px;
-}
-.border-l {
-  border-left-width: 1px;
-}
-.border-l-2 {
-  border-left-width: 2px;
 }
 .border-none {
   border-style: none;
@@ -1764,12 +1728,6 @@ select {
 .pl-10 {
   padding-left: 2.5rem;
 }
-.pl-2 {
-  padding-left: 0.5rem;
-}
-.pr-1 {
-  padding-right: 0.25rem;
-}
 .text-left {
   text-align: left;
 }
@@ -1860,9 +1818,6 @@ select {
 .leading-snug {
   line-height: 1.375;
 }
-.leading-6 {
-  line-height: 1.5rem;
-}
 .tracking-widest {
   letter-spacing: 0.1em;
 }
@@ -1951,10 +1906,6 @@ select {
 .text-red-400 {
   --tw-text-opacity: 1;
   color: rgb(248 113 113 / var(--tw-text-opacity));
-}
-.text-gray-300 {
-  --tw-text-opacity: 1;
-  color: rgb(209 213 219 / var(--tw-text-opacity));
 }
 .underline {
   -webkit-text-decoration-line: underline;
