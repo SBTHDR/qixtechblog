@@ -20,30 +20,6 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
-                  {{-- <form action="{{ route('posts.store') }}" method="POST">
-                    @csrf
-
-                    <div>
-                      <x-jet-label for="category_id" value="{{ __('Post Category') }}" />
-                      <select name="category_id" class="w-full mb-6 border-gray-300 rounded-md">
-                        <option value="">Select a category</option>
-                        @foreach ($categories as $category)                            
-                          <option value="{{ $category->id }}">{{ $category->name }}</option>
-                        @endforeach
-                      </select>
-                    </div>
-
-                    <div>
-                      <x-jet-label for="title" value="{{ __('Post Title') }}" />
-                      <x-jet-input id="title" class="block mt-1 w-full" type="text" name="title" :value="old('title')" />
-                      <x-jet-input-error for="title" class="mt-2" />
-                    </div>
-
-                    <x-jet-button class="mt-4">
-                      {{ __('Create') }}
-                    </x-jet-button>
-
-                  </form> --}}
 
                   <x-form action="{{ route('posts.store') }}" has-files>
                     <div class="space-y-6">
@@ -67,7 +43,7 @@
                         {{-- Category --}}
                         <div>
                             <x-jet-label for="category_id" value="{{ __('Categories') }}" />
-                            <select name="category_id" id="category_id" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                            <select name="category_id" id="category_id" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 cursor-pointer">
 
                                 <option value="">Please select a category</option>
                                 @foreach ($categories as $category )
@@ -86,16 +62,15 @@
 
                         {{-- Schedule --}}
                         <div>
-                            <x-jet-label for="published_at" value="{{ __('Schedule Date') }}" />
-                            {{-- <x-pikaday name="published_at" format="YYYY-MM-DD" /> --}}
-                            <input type="date" name="published_at" id="published_at">
+                            <x-jet-label for="published_at" value="{{ __('Schedule Date') }}" />                      
+                            <input type="date" name="published_at" id="published_at" placeholder="Select a date">
                             <x-jet-input-error for="published_at" class="mt-2" />
                         </div>
 
                         {{-- Tags --}}
                         <div>
                             <x-jet-label for="tags" value="{{ __('Tags') }}" />
-                            <select name="tags[]" class="w-full" id="create-post" multiple x-data="{}" x-init="function () { choices($el) }">
+                            <select name="tags[]" class="w-full cursor-pointer" multiple>
                                 @foreach ($tags as $tag )
                                 <option value="{{ $tag->id }}">{{ $tag->name }}</option>
                                 @endforeach
@@ -123,3 +98,10 @@
         </div>
     </div>
 </x-app-layout>
+
+<script>
+  flatpickr('#published_at',{
+    enableTime: false,
+    dateFormat: "Y-m-d H:i",
+  })
+</script>

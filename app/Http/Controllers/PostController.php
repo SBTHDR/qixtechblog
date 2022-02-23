@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
+use Illuminate\Support\Facades\File;
 
 class PostController extends Controller
 {
@@ -88,8 +90,10 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        $tags = Tag::all();
         $categories = Category::all();
-        return view('dashboard.posts.edit', compact('post', 'categories'));
+        $oldTags = $post->tags->pluck('id')->toArray();
+        return view('dashboard.posts.edit', compact('post', 'tags', 'categories', 'oldTags'));
     }
 
     /**
@@ -99,12 +103,36 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(StorePostRequest $request, Post $post)
+    public function update(UpdatePostRequest $request, Post $post)
     {
-        $post->update([
-            'name' => $request->name,
-            'slug' => Str::slug($request->name),
-        ]);
+        
+        $post->title = $request->title;
+        $post->slug = Str::slug($request->title);
+        $post->description = $request->description;
+        $post->user_id = Auth::user()->id;
+        $post->category_id = $request->category_id;
+        $post->published_at = $request->published_at;
+        $post->meta_description = $request->meta_description;
+
+        if ($request->hasFile('image')) {
+
+            $oldFileName = $post->image;
+
+            $image = $request->file('image');
+            $imageName = $image->getClientOriginalName();
+            $imageNewName = explode('.', $imageName)[0];
+            $fileExtention = time() . '.' . $imageNewName . '.' . $image->getClientOriginalExtension();
+            $location = storage_path('app/public/images/' . $fileExtention);
+            Image::make($image)->resize(1200, 630)->save($location);
+
+            $post->image = $fileExtention;
+
+            File::delete(storage_path('app/public/images/' . $oldFileName));
+        };
+
+        $post->save();
+        $post->tags()->sync($request->tags);
+        
 
         return redirect()->route('posts.index')->with('success', 'Post updated successfully!');
     }

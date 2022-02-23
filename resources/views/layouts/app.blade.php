@@ -13,11 +13,11 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-
+        
         @livewireStyles
-
+        
         @bukStyles(true)
-
+        
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
     </head>
